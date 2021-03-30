@@ -1,21 +1,24 @@
-import React from 'react';
-import {Link, Switch, Route} from 'react-router-dom';
+import React from "react";
+import { Link, Switch, Route } from "react-router-dom";
 
-import './App.css';
+import "./App.css";
 
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-
+import HomePage from "./pages/homepage/homepage.component";
+import ShopPage from "./pages/shop/shop.component";
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import Header from "./components/header/header.component";
 
 function App() {
-  return (
-    <div className="App">
-      <Switch>
-        <Route exact path='/' component={HomePage}></Route>
-        <Route path='/shop' component={ShopPage}></Route>
-      </Switch>
-    </div>
-  );
+	return (
+		<div className='App'>
+			<Header />
+			<Switch>
+				<Route exact path='/' component={HomePage}></Route>
+				<Route path='/shop' component={ShopPage}></Route>
+				<Route path='/signin' component={SignInAndSignUp}></Route>
+			</Switch>
+		</div>
+	);
 }
 
 export default App;
