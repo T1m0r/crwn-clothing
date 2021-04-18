@@ -1,3 +1,4 @@
+import { UserActionTypes } from "./user.types";
 // Create Initial state the first time - same as previously in app.js
 const INITIAL_STATE = {
 	currentUser: null,
@@ -6,7 +7,7 @@ const INITIAL_STATE = {
 // set the default value for state to the initial state
 const userReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case "SET_CURRENT_USER":
+		case UserActionTypes.SET_CURRENT_USER:
 			return {
 				...state,
 				currentUser: action.payload,
