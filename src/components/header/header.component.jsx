@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 import "./header.styles.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
-const Header = ({ currentUser }) => (
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+const Header = ({ currentUser, hidden }) => (
 	<div className='header'>
 		<Link className='logo-container' to='/'>
 			<Logo className='logo' />
@@ -27,13 +30,18 @@ const Header = ({ currentUser }) => (
 					SIGN IN
 				</Link>
 			)}
+			<CartIcon />
 		</div>
+		{hidden ? null : <CartDropdown />}
 	</div>
 );
 
 // Can have any name but mapStateToProps is standart for this
-const mapStateToProps = (state) => ({
-	currentUser: state.user.currentUser,
+// advanced way to destructure of state->{} -> off of users -> {}
+//destructure nested values
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+	currentUser, // same as currentUser: currentUser
+	hidden,
 });
 
 export default connect(mapStateToProps)(Header);
