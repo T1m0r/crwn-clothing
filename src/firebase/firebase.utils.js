@@ -12,6 +12,8 @@ const config = {
 	measurementId: "G-0FEH5VL576",
 };
 
+firebase.initializeApp(config);
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 	// IF User is not signed in
 	if (!userAuth) return;
@@ -19,7 +21,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	// Query if auth-User is in DB
 	const userRef = firestore.doc(`users/${userAuth.uid}`);
 	const snapShot = await userRef.get();
-	console.log(snapShot);
+	//console.log(snapShot);
 
 	// If user does not exist create it
 	if (!snapShot.exists) {
@@ -36,10 +38,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	return userRef;
 };
 
-firebase.initializeApp(config);
-
 export const auth = firebase.auth();
-export const firestote = firebase.firestore();
+export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ promp: "select_account" });
