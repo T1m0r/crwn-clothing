@@ -7,6 +7,10 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
+//Uploading shop data to firestore (once)
+//import { addCollectionAndDocuments } from "./firebase/firebase.utils";
+//import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
+
 import "./App.css";
 
 import HomePage from "./pages/homepage/homepage.component";
@@ -19,7 +23,7 @@ class App extends React.Component {
 	unsubscribeFromAuth = null;
 
 	componentDidMount() {
-		const { setCurrentUser } = this.props;
+		const { setCurrentUser /*, collectionArray*/ } = this.props;
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth);
@@ -37,6 +41,11 @@ class App extends React.Component {
 			} else {
 				setCurrentUser(userAuth);
 			}
+			// Moving shop collection data to firestore
+			/*addCollectionAndDocuments(
+				"collections",
+				collectionArray.map(({ title, items }) => ({ title, items }))
+			);*/
 		});
 	}
 
@@ -66,6 +75,8 @@ class App extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
+	// Moving shop collection data to firestore
+	//collectionArray: selectCollectionsForPreview,
 });
 
 const mapDispatchToProps = (dispatch) => ({
